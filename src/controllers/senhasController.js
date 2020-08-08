@@ -81,7 +81,7 @@ async function notificaSolicitacaoDeSenha(res) {
 
   transporter.sendMail(email, (err, result) => {
     if (err) return console.log(err);
-    console.log("Mensagem enviada!!!! " + result);
+    console.log("Mensagem enviada!!!!");
   });
 }
 
