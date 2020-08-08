@@ -52,10 +52,8 @@ async function updateSenhas(request, response) {
 }
 
 async function notificaSolicitacaoDeSenha(res) {
-  const host = "smtp.gmail.com";
-  const port = 587;
   const user = "senhaparamissa@outlook.com";
-  const pass = "pascom2020";
+  const pass = process.env.PASS;
 
   const mensagem =
     "Nova senha solicitada para " +
@@ -76,7 +74,7 @@ async function notificaSolicitacaoDeSenha(res) {
     from: user,
     to: "venicius.alves@gmail.com",
     subject: "[SENHA PARA MISSA]",
-    text: mensagem
+    text: mensagem,
   };
 
   transporter.sendMail(email, (err, result) => {
