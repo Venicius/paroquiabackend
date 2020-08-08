@@ -1,6 +1,5 @@
 const db = require("../database/connection");
 const nodemailer = require("nodemailer");
-const { text } = require("body-parser");
 
 async function listSenhas(request, response) {
   const senhas = await db("senhas");
@@ -19,6 +18,7 @@ async function solicitaSenha(request, response) {
       .decrement("disponiveis", 1);
     await trx.commit();
     notificaSolicitacaoDeSenha(senha);
+    notificaUsuario(senha);
     return response
       .status(201)
       .json({ message: "Senha solicitada com sucesso." });
@@ -74,6 +74,37 @@ async function notificaSolicitacaoDeSenha(res) {
     from: user,
     to: "venicius.alves@gmail.com",
     subject: "[SENHA PARA MISSA]",
+    text: mensagem,
+  };
+
+  transporter.sendMail(email, (err, result) => {
+    if (err) return console.log(err);
+    console.log("Mensagem enviada!!!!");
+  });
+}
+
+async function notificaUsuario(res) {
+  const user = process.env.USER;
+  const pass = process.env.PASS;
+
+  const mensagem =
+    "Olá, sua senha foi solicitada com sucesso, em breve você receberá no seu whatssapp ( " +
+    res.whatsapp +" ) a senha para utilização na porta da Igreja.";
+
+  console.log(mensagem);
+
+  const transporter = nodemailer.createTransport({
+    service: "Hotmail",
+    auth: {
+      user,
+      pass,
+    },
+  });
+
+  const email = {
+    from: user,
+    to: res.email,
+    subject: "[SENHA PARA MISSA] - NOVA SOLICITAÇÃO",
     text: mensagem,
   };
 

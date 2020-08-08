@@ -3,6 +3,7 @@ exports.up = function (knex) {
     table.increments("id").primary();
     table.string("nome").notNullable();
     table.string("whatsapp").notNullable();
+    table.string("email")
     table
       .integer("missa_id")
       .notNullable()
