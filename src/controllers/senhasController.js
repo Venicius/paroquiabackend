@@ -52,7 +52,7 @@ async function updateSenhas(request, response) {
 }
 
 async function notificaSolicitacaoDeSenha(res) {
-  const user = "senhaparamissa@outlook.com";
+  const user = process.env.USER;
   const pass = process.env.PASS;
 
   const mensagem =
