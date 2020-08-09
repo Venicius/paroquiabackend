@@ -63,7 +63,7 @@ async function notificaSolicitacaoDeSenha(res) {
   console.log(mensagem);
 
   const transporter = nodemailer.createTransport({
-    service: "Hotmail",
+    service: "Gmail",
     auth: {
       user,
       pass,
@@ -94,7 +94,7 @@ async function notificaUsuario(res) {
   console.log(mensagem);
 
   const transporter = nodemailer.createTransport({
-    service: "Hotmail",
+    service: "Gmail",
     auth: {
       user,
       pass,
