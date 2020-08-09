@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -r dotenv/config src/server.js",
+    "start": "dotenv/config src/server.js",
+    "dev": "nodemon -r dotenv/config src/server.js",
     "migrate": "knex --knexfile knexfile.js migrate:latest",
     "rollback": "knex --knexfile knexfile.js migrate:rollback --all",
     "up": "knex --knexfile knexfile.js migrate:up",
