@@ -1,14 +1,14 @@
 const db = require("../database/connection");
 
 async function listMissas(request, response) {
-  const missas = await db("missas");
+  const missas = await db("missas").where("ativo", "=", true);
 
   return response.status(200).json(missas);
 }
 
 async function listMissaById(request, response) {
   const params = request.params;
-  const missas = await db("missas").where("id","=",params.id);
+  const missas = await db("missas").where("id", "=", params.id);
 
   return response.status(200).json(missas);
 }
