@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon -r dotenv/config src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config src/server.js",
     "migrate": "knex --knexfile knexfile.js migrate:latest",
     "rollback": "knex --knexfile knexfile.js migrate:rollback --all",
     "up": "knex --knexfile knexfile.js migrate:up",
