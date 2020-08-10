@@ -20,4 +20,14 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+  production: {
+    client: "sqlite3",
+    connection: {
+      filename: "./src/database/database-prod.sqlite",
+    },
+    migrations: {
+      directory: "./src/database/migrations",
+    },
+    useNullAsDefault: true,
+  },
 };
