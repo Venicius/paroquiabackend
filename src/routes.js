@@ -8,12 +8,12 @@ const auth = require("./auth");
 authRoutes.use(auth);
 authRoutes.post("/missas", MissasController.createMissa);
 uauthRoutes.get("/missas", MissasController.listMissas);
-uauthRoutes.put("/missas/:id", MissasController.updateMissa);
+authRoutes.put("/missas/:id", MissasController.updateMissa);
 uauthRoutes.get("/missas/:id", MissasController.listMissaById);
 
 uauthRoutes.post("/senhas", SenhasController.solicitaSenha);
 uauthRoutes.get("/senhas", SenhasController.listSenhas);
-uauthRoutes.put("/senhas/:id", SenhasController.updateSenhas);
+authRoutes.put("/senhas/:id", SenhasController.updateSenhas);
 
 exports.uauthRoutes = uauthRoutes;
 exports.authRoutes = authRoutes;

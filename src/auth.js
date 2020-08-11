@@ -9,7 +9,6 @@ admin.initializeApp({
 
 module.exports = (request, response, next) => {
   if (request.headers.authorization) {
-    console.log("if");
     admin
       .auth()
       .verifyIdToken(request.headers.authorization)
