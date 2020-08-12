@@ -1,15 +1,19 @@
 const express = require("express");
-const routes = express.Router();
+const uauthRoutes = express.Router();
+const authRoutes = express.Router();
 const MissasController = require("./controllers/missasController");
 const SenhasController = require("./controllers/senhasController");
+const auth = require("./auth");
 
-routes.post("/missas", MissasController.createMissa);
-routes.get("/missas", MissasController.listMissas);
-routes.put("/missas/:id", MissasController.updateMissa);
-routes.get("/missas/:id", MissasController.listMissaById);
+authRoutes.use(auth);
+authRoutes.post("/missas", MissasController.createMissa);
+uauthRoutes.get("/missas", MissasController.listMissas);
+authRoutes.put("/missas/:id", MissasController.updateMissa);
+uauthRoutes.get("/missas/:id", MissasController.listMissaById);
 
-routes.post("/senhas", SenhasController.solicitaSenha);
-routes.get("/senhas", SenhasController.listSenhas);
-routes.put("/senhas/:id", SenhasController.updateSenhas);
+uauthRoutes.post("/senhas", SenhasController.solicitaSenha);
+uauthRoutes.get("/senhas", SenhasController.listSenhas);
+authRoutes.put("/senhas/:id", SenhasController.updateSenhas);
 
-module.exports = routes;
+exports.uauthRoutes = uauthRoutes;
+exports.authRoutes = authRoutes;
