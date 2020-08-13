@@ -17,8 +17,11 @@ async function solicitaSenha(request, response) {
       .where({ id: senha.missa_id })
       .decrement("disponiveis", 1);
     await trx.commit();
-    notificaSolicitacaoDeSenha(senha);
-    notificaUsuario(senha);
+    if (process.env.PARAMETRO_ENVIA_EMAIL === "ATIVO") {
+      console.log(process.env.PARAMETRO_ENVIA_EMAIL);
+      notificaSolicitacaoDeSenha(senha);
+      notificaUsuario(senha);
+    }
     return response
       .status(201)
       .json({ message: "Senha solicitada com sucesso." });
@@ -89,7 +92,8 @@ async function notificaUsuario(res) {
 
   const mensagem =
     "Olá, sua senha foi solicitada com sucesso, em breve você receberá no seu whatssapp ( " +
-    res.whatsapp +" ) a senha para utilização na porta da Igreja.";
+    res.whatsapp +
+    " ) a senha para utilização na porta da Igreja.";
 
   console.log(mensagem);
 
