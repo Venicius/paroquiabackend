@@ -2,10 +2,14 @@ const db = require("../database/connection");
 const nodemailer = require("nodemailer");
 
 async function listSenhas(request, response) {
-  const senhas = await db("senhas");
+  const senhas = await db("senhas")
+    .select("senhas.*", "missas.data", "missas.local")
+    .join("missas", "senhas.missa_id", "=", "missas.id")
+    .orderBy("solicitado_at");
 
   return response.status(200).json(senhas);
 }
+
 async function solicitaSenha(request, response) {
   const senha = { ...request.body };
 
@@ -17,8 +21,11 @@ async function solicitaSenha(request, response) {
       .where({ id: senha.missa_id })
       .decrement("disponiveis", 1);
     await trx.commit();
-    notificaSolicitacaoDeSenha(senha);
-    notificaUsuario(senha);
+    if (process.env.PARAMETRO_ENVIA_EMAIL === "ATIVO") {
+      console.log(process.env.PARAMETRO_ENVIA_EMAIL);
+      notificaSolicitacaoDeSenha(senha);
+      notificaUsuario(senha);
+    }
     return response
       .status(201)
       .json({ message: "Senha solicitada com sucesso." });
@@ -89,7 +96,8 @@ async function notificaUsuario(res) {
 
   const mensagem =
     "Olá, sua senha foi solicitada com sucesso, em breve você receberá no seu whatssapp ( " +
-    res.whatsapp +" ) a senha para utilização na porta da Igreja.";
+    res.whatsapp +
+    " ) a senha para utilização na porta da Igreja.";
 
   console.log(mensagem);
 

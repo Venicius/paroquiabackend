@@ -12,7 +12,7 @@ authRoutes.put("/missas/:id", MissasController.updateMissa);
 uauthRoutes.get("/missas/:id", MissasController.listMissaById);
 
 uauthRoutes.post("/senhas", SenhasController.solicitaSenha);
-uauthRoutes.get("/senhas", SenhasController.listSenhas);
+authRoutes.get("/senhas", SenhasController.listSenhas);
 authRoutes.put("/senhas/:id", SenhasController.updateSenhas);
 
 exports.uauthRoutes = uauthRoutes;
