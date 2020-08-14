@@ -2,10 +2,14 @@ const db = require("../database/connection");
 const nodemailer = require("nodemailer");
 
 async function listSenhas(request, response) {
-  const senhas = await db("senhas");
+  const senhas = await db("senhas")
+    .select("senhas.*", "missas.data", "missas.local")
+    .join("missas", "senhas.missa_id", "=", "missas.id")
+    .orderBy("solicitado_at");
 
   return response.status(200).json(senhas);
 }
+
 async function solicitaSenha(request, response) {
   const senha = { ...request.body };
 
