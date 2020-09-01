@@ -21,7 +21,7 @@ module.exports = {
     useNullAsDefault: true,
   },
   production: {
-    client: "sqlite3",
+    client: "pg",
     connection: {
       host: "ec2-54-91-178-234.compute-1.amazonaws.com",
       user: "moqbbevbskvkfh",
